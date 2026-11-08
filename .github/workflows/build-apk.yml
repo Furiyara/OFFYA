@@ -19,29 +19,18 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Android SDK İndir ve Kur
-      run: |
-        # SDK için gerekli klasörleri oluştur
-        mkdir -p $HOME/android-sdk/cmdline-tools
-        cd $HOME/android-sdk/cmdline-tools
-        # En güncel komut satırı araçlarını indir
-        wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-        unzip commandlinetools-linux-11076708_latest.zip
-        mv cmdline-tools latest
-        rm commandlinetools-linux-11076708_latest.zip
-        
-        # Çevre değişkenlerini ayarla
-        echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-        echo "PATH=$HOME/android-sdk/cmdline-tools/latest/bin:$PATH" >> $GITHUB_ENV
-        
-        # Lisansları kabul et ve gerekli paketleri yükle
-        yes | sdkmanager --licenses || true
-        sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
     - name: Gradle Kur
       uses: gradle/actions/setup-gradle@v4
       with:
         gradle-version: '8.9'
+
+    # SDK indirme karmaşasını çözmek için doğrudan resmi eylemi kullanıyoruz
+    - name: Android SDK Kur
+      uses: android-actions/setup-android@v3
+      with:
+        cmdline-tools-version: 'latest'
+        packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+        accept-android-sdk-licenses: true
 
     - name: APK Derle
       run: gradle assembleDebug
