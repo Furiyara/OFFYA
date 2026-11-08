@@ -12,3 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+rootProject.name = "OFFYA"
+include(":app")
