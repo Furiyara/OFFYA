@@ -16,7 +16,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Android SDK kur
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v2
       - name: SDK bileşenlerini kur
         run: yes | sdkmanager --licenses
       - name: Android platform ve build tools
