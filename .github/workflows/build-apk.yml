@@ -15,12 +15,14 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Android SDK kur
-        uses: android-actions/setup-android@v2
-      - name: SDK bileşenlerini kur
-        run: yes | sdkmanager --licenses
-      - name: Android platform ve build tools
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+           - name: Android SDK Kurulumu ve Lisanslar
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y android-sdk
+          export ANDROID_HOME=/usr/lib/android-sdk
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+          yes | sdkmanager --licenses || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
       - name: Gradle kur
         uses: gradle/actions/setup-gradle@v4
         with:
