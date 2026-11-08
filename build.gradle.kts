@@ -1,15 +1,5 @@
+// Bu blok, eklentilerin sürümlerini tanımlar
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-}
-android {
-    namespace = "com.example.turkceflick"
-    compileSdk = 35
-    defaultConfig {
-        applicationId = "com.example.turkceflick"
-        minSdk = 23
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-    }
+    id("com.android.application") version "8.2.2" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.22" apply false
 }
